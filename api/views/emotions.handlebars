@@ -1,0 +1,136 @@
+<h1>Emoções</h1>
+<p>Uma emotion armazena os dados sobre emoções do usuário e são relacionadas com os <a href="records">Registros</a>. É necessário estar <strong>Autenticado</strong> para usar esta rota</p>
+
+<h3 id="object">Objeto Emotion</h3>
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+  <tr>
+    <td>_id</td>
+    <td>string</td>
+    <td>Identificação da emoção</td>
+  </tr>
+  <tr>
+    <td>name</td>
+    <td>string</td>
+    <td>Nome da emoção</td>
+  </tr>
+  <tr>
+    <td>createdAt</td>
+    <td>date</td>
+    <td>Data de criação</td>
+  </tr>
+  <tr>
+    <td>updatedAt</td>
+    <td>date</td>
+    <td>Data de atualização</td>
+  </tr>
+</table>
+
+<h2 class="subtitle" id="get">Pegar Emoções</h2>
+<span class="method">GET</span>
+<span class="route">/api/emotions</span>
+<p>Retorna as ultimas emoções criadas em um limite máximo de 20.</p>
+
+<h3>Params Url</h3>
+
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+  <tr>
+    <td>page</td>
+    <td>number</td>
+    <td>Indica a página a retornar. Opcional</td>
+  </tr>
+  <tr>
+    <td>limit</td>
+    <td>number</td>
+    <td>Indica a quantidade de registros a retornar [1-20]. Opcional</td>
+  </tr>
+  <tr>
+    <td>sort</td>
+    <td>string</td>
+    <td>Ordena pela data de criação. Pode ser <i>ASC</i> ou <i>DESC. Opcional</i></td>
+  </tr>
+  <tr>
+    <td>timestamps</td>
+    <td>boolean</td>
+    <td>Retorna as datas de criação e atualização. Opcional</td>
+  </tr>
+</table>
+
+<h3>Exemplo bem sucedido:</h3>
+
+<pre>
+  {
+    "status": 200,
+    "message": "",
+    "data": [
+        {
+        "_id": "60e78e197ce2c21cb77e1a77",
+        "name": "Exemplo",
+        "createdAt": "2021-07-08T23:45:29.612Z",
+        "updatedAt": "2021-07-08T23:45:29.612Z"
+        }
+    ]
+  }
+</pre>
+
+<h2 class="subtitle" id="create">Criar Emoção</h2>
+<span class="method">POST</span>
+<span class="route">/api/emotions</span>
+<p>Cria uma nova emoção a partir de um nome.</p>
+
+<h3>Params JSON</h3>
+
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+    <td>name</td>
+    <td>string</td>
+    <td>Um nome para a nova emoção, tem de ser único. Obrigatório</td>
+  </tr>
+</table>
+
+<h2 class="subtitle" id="update">Atualizar Emoção</h2>
+<span class="method">PUT</span>
+<span class="route">/api/emotions/:id</span>
+<p>Atualiza uma emoção usando o id cedido através da url.</p>
+
+<h3>Params JSON</h3>
+
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+    <td>name</td>
+    <td>string</td>
+    <td>Um novo nome para a emoção, tem de ser único. Opcional</td>
+  </tr>
+</table>
+
+
+<h2 class="subtitle" id="delete">Deletar Emoção</h2>
+<span class="method">DELETE</span>
+<span class="route">/api/emotions/:id</span>
+<p>Delete uma emoção usando o id cedido através da url.</p>
+
+<h3>Exemplo bem sucedido:</h3>
+
+<pre>
+    {
+    "status": 200,
+    "message": "Emoção deletada com sucesso"
+    }
+</pre>

@@ -1,0 +1,236 @@
+:root {
+  font-size: 16px;
+  color: var(--white);
+  --dark-gray: #121224;
+  --gray: #222238;
+  --light-gray: #444458;
+  --white: #dedede;
+  --white-smoke: #ababab;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--light-gray);
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+pre{
+  font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+  overflow-x: auto;
+  padding: 10px 20px;
+  background-color: rgb(43, 32, 32);
+  color: var(--white-smoke);
+  text-overflow: clip;
+}
+
+pre::-webkit-scrollbar {
+  background-color: transparent;
+  width: 5px;
+  height: 5px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background-color: var(--dark-gray);
+  border-radius: 50px;
+}
+
+/* Section */
+section {
+  padding: 20px 40px;
+  flex: 1;
+  overflow-x: hidden;
+}
+
+section::-webkit-scrollbar {
+  background-color: transparent;
+  width: 10px;
+}
+
+section::-webkit-scrollbar-thumb {
+  background-color: var(--dark-gray);
+  border-radius: 50px;
+}
+
+/* SideNav */
+.sidebar {
+  display: flex;
+  width: 350px;
+  background-color: var(--gray);
+  height: 100%;
+  overflow-y: auto;
+  flex-direction: column;
+  padding: 10px 20px;
+}
+
+.sidebar .logo {
+  color: white;
+  font-size: 2rem;
+  padding: 20px 10px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 700;
+}
+
+.sidebar .item {
+  padding: 8px 10px;
+  border-radius: 5px;
+  transition: 300ms;
+}
+
+.sidebar .section {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--white);
+  margin-top: 15px;
+}
+
+.sidebar .link {
+  font-size: 1rem;
+  color: var(--white-smoke);
+  text-decoration: none;
+}
+
+.sidebar .link:hover {
+  color: var(--white);
+}
+
+.sidebar::-webkit-scrollbar {
+  background-color: transparent;
+  width: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: var(--dark-gray);
+  border-radius: 50px;
+}
+
+/* Nav */
+nav {
+  position: fixed;
+  background-color: #121212;
+  height: 40px;
+  width: 100vw;
+  z-index: 999;
+  color: white;
+  display: none;
+  align-items: center;
+  padding: 0 20px;
+}
+
+nav .menu-icon {
+  padding: 10px;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+nav .menu-title {
+  font-size: 1rem;
+  color: #bababa;
+  flex: 1;
+  text-align: center;
+}
+
+@media screen and (max-width: 1024px) {
+  .sidebar {
+    z-index: 10;
+    top: 0;
+    left: -350px;
+    position: absolute;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+
+  nav {
+    display: flex;
+  }
+
+  main {
+    padding-top: 40px;
+  }
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 20px 0;
+}
+
+h2 {
+  font-size: 1.6rem;
+  margin: 20px 0;
+}
+
+h2.subtitle{
+  margin-top: 80px;
+}
+
+h3 {
+  font-size: 1rem;
+  margin: 20px 0;
+  margin-top: 30px;
+}
+
+p {
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+table {
+  background-color: #212121;
+  width: 100%;
+}
+
+table th,
+table td {
+  text-align: left;
+}
+
+table th {
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  color: var(--white);
+  font-weight: 500;
+  padding: 5px;
+}
+
+table td {
+  padding: 5px;
+  font-size: 0.8rem;
+  color: var(--white-smoke);
+}
+
+.method {
+  color: yellow;
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin-right: 5px;
+}
+
+.route {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+section a{
+  color: #207bb8;
+  text-decoration: none;
+}
+
+.line{
+  height: 100px;
+}

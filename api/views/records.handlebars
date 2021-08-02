@@ -1,0 +1,329 @@
+<h1>Registros</h1>
+<p>Uma record armazena os dados sobre os registros do usuário e são relacionadas com as <a href="emotions">Emoções</a>. É necessário estar <strong>Autenticado</strong> para usar esta rota</p>
+
+<h3 id="object">Objeto Record</h3>
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+  <tr>
+    <td>_id</td>
+    <td>string</td>
+    <td>Identificação do registro</td>
+  </tr>
+  <tr>
+    <td>date</td>
+    <td>date</td>
+    <td>Data a que o registro se refere</td>
+  </tr>
+  <tr>
+    <td>thought</td>
+    <td>string</td>
+    <td>Pensamento sucedido na data em questão</td>
+  </tr>
+  <tr>
+    <td>thought_believe</td>
+    <td>number</td>
+    <td>O quanto o usuário acredita nesse pensamento [0-100]</td>
+  </tr>
+  <tr>
+    <td>thought_emotions</td>
+    <td>array</td>
+    <td>Array de objetos contendo o id de uma emoção e o quanto o usuário sentia dessa emoção</td>
+  </tr>
+  <tr>
+    <td>answer</td>
+    <td>string</td>
+    <td>Resposta racional dada ao pensamento</td>
+  </tr>
+  <tr>
+    <td>answer_believe</td>
+    <td>number</td>
+    <td>O quanto o usuário acredita no pensamento após a resposta [0-100]</td>
+  </tr>
+  <tr>
+    <td>answer_emotions</td>
+    <td>array</td>
+    <td>Array de objetos contendo o id de uma emoção e o quanto o usuário sentia dessa emoção</td>
+  </tr>
+  <tr>
+    <td>action</td>
+    <td>string</td>
+    <td>Ação tomada pelo usuário</td>
+  </tr>
+  <tr>
+    <td>createdAt</td>
+    <td>date</td>
+    <td>Data de criação</td>
+  </tr>
+  <tr>
+    <td>updatedAt</td>
+    <td>date</td>
+    <td>Data de atualização</td>
+  </tr>
+</table>
+
+<h2 class="subtitle" id="get">Pegar Registros</h2>
+<span class="method">GET</span>
+<span class="route">/api/records</span>
+<p>Retorna os últimos registros criados em um limite máximo de 20.</p>
+
+<h3>Params Url</h3>
+
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+  <tr>
+    <td>page</td>
+    <td>number</td>
+    <td>Indica a página a retornar. Opcional</td>
+  </tr>
+  <tr>
+    <td>limit</td>
+    <td>number</td>
+    <td>Indica a quantidade de registros a retornar [1-20]. Opcional</td>
+  </tr>
+  <tr>
+    <td>sort</td>
+    <td>string</td>
+    <td>Ordena pela data de criação. Pode ser <i>ASC</i> ou <i>DESC. Opcional</i></td>
+  </tr>
+  <tr>
+    <td>timestamps</td>
+    <td>boolean</td>
+    <td>Retorna as datas de criação e atualização. Opcional</td>
+  </tr>
+  <tr>
+    <td>populate</td>
+    <td>boolean</td>
+    <td>Popula as emoções dentro do registro, adicionando o nome de cada uma. Opcional</td>
+  </tr>
+</table>
+
+<h3>Exemplo bem sucedido:</h3>
+
+<pre>
+  {
+    "status": 200,
+    "message": "",
+    "data": [{
+      "_id": "60e79cc7907eb226ab86dc9e",
+      "date": "2021-07-08T00:10:30.000Z",
+      "thought": "Teste",
+      "thought_believe": 50,
+      "thought_emotions": [
+        {
+          "emotion": {
+            "_id": "60e624faafbaba0fab8f6e8c",
+            "name": "Teste"
+          },
+          "feel": 68
+        }
+      ],
+      "answer": "Teste",
+      "answer_believe": 10,
+      "answer_emotions": [
+        {
+          "emotion": {
+            "_id": "60e624faafbaba0fab8f6e8c",
+            "name": "Teste"
+          },
+          "feel": 10
+        }
+      ],
+      "action": "Teste"
+    }]
+  }
+</pre>
+
+
+<h2 class="subtitle" id="get-id">Pegar Registro</h2>
+<span class="method">GET</span>
+<span class="route">/api/records/:id</span>
+<p>Retorna o mais informações sobre um registro através do id.</p>
+
+<h3>Params Url</h3>
+
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+  <tr>
+    <td>timestamps</td>
+    <td>boolean</td>
+    <td>Retorna as datas de criação e atualização. Opcional</td>
+  </tr>
+  <tr>
+    <td>populate</td>
+    <td>boolean</td>
+    <td>Popula as emoções dentro do registro, adicionando o nome de cada uma. Opcional</td>
+  </tr>
+</table>
+
+<h3>Exemplo bem sucedido:</h3>
+
+<pre>
+  {
+    "status": 200,
+    "message": "",
+    "data": {
+      "_id": "60e79cc7907eb226ab86dc9e",
+      "date": "2021-07-08T00:10:30.000Z",
+      "thought": "Teste",
+      "thought_believe": 50,
+      "thought_emotions": [
+        {
+          "emotion": {
+            "_id": "60e624faafbaba0fab8f6e8c",
+            "name": "Teste"
+          },
+          "feel": 68
+        }
+      ],
+      "answer": "Teste",
+      "answer_believe": 10,
+      "answer_emotions": [
+        {
+          "emotion": {
+            "_id": "60e624faafbaba0fab8f6e8c",
+            "name": "Teste"
+          },
+          "feel": 10
+        }
+      ],
+      "action": "Teste"
+    }
+  }
+</pre>
+
+<h2 class="subtitle" id="create">Criar Registro</h2>
+<span class="method">POST</span>
+<span class="route">/api/emotions</span>
+<p>Cria um novo registro.</p>
+
+<h3>Params JSON</h3>
+
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+  <tr>
+    <td>date</td>
+    <td>string</td>
+    <td>Data a que o registro se refere</td>
+  </tr>
+  <tr>
+    <td>thought</td>
+    <td>string</td>
+    <td>Pensamento sucedido na data em questão</td>
+  </tr>
+  <tr>
+    <td>thought_believe</td>
+    <td>number</td>
+    <td>O quanto o usuário acredita nesse pensamento [0-100]</td>
+  </tr>
+  <tr>
+    <td>thought_emotions</td>
+    <td>array</td>
+    <td>Array de objetos contendo o id de uma emoção e o quanto o usuário sentia dessa emoção</td>
+  </tr>
+  <tr>
+    <td>answer</td>
+    <td>string</td>
+    <td>Resposta racional dada ao pensamento</td>
+  </tr>
+  <tr>
+    <td>answer_believe</td>
+    <td>number</td>
+    <td>O quanto o usuário acredita no pensamento após a resposta [0-100]</td>
+  </tr>
+  <tr>
+    <td>answer_emotions</td>
+    <td>array</td>
+    <td>Array de objetos contendo o id de uma emoção e o quanto o usuário sentia dessa emoção</td>
+  </tr>
+  <tr>
+    <td>action</td>
+    <td>string</td>
+    <td>Ação tomada pelo usuário</td>
+  </tr>
+</table>
+
+<h2 class="subtitle" id="update">Atualizar Registro</h2>
+<span class="method">PUT</span>
+<span class="route">/api/records/:id</span>
+<p>Atualiza um registro usando o id cedido através da url.</p>
+
+<h3>Params JSON</h3>
+
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+  <tr>
+    <td>date</td>
+    <td>string</td>
+    <td>Data a que o registro se refere</td>
+  </tr>
+  <tr>
+    <td>thought</td>
+    <td>string</td>
+    <td>Pensamento sucedido na data em questão</td>
+  </tr>
+  <tr>
+    <td>thought_believe</td>
+    <td>number</td>
+    <td>O quanto o usuário acredita nesse pensamento [0-100]</td>
+  </tr>
+  <tr>
+    <td>thought_emotions</td>
+    <td>array</td>
+    <td>Array de objetos contendo o id de uma emoção e o quanto o usuário sentia dessa emoção</td>
+  </tr>
+  <tr>
+    <td>answer</td>
+    <td>string</td>
+    <td>Resposta racional dada ao pensamento</td>
+  </tr>
+  <tr>
+    <td>answer_believe</td>
+    <td>number</td>
+    <td>O quanto o usuário acredita no pensamento após a resposta [0-100]</td>
+  </tr>
+  <tr>
+    <td>answer_emotions</td>
+    <td>array</td>
+    <td>Array de objetos contendo o id de uma emoção e o quanto o usuário sentia dessa emoção</td>
+  </tr>
+  <tr>
+    <td>action</td>
+    <td>string</td>
+    <td>Ação tomada pelo usuário</td>
+  </tr>
+</table>
+
+
+<h2 class="subtitle" id="delete">Deletar Registro</h2>
+<span class="method">DELETE</span>
+<span class="route">/api/records/:id</span>
+<p>Delete um registro usando o id cedido através da url.</p>
+
+<h3>Exemplo bem sucedido:</h3>
+
+<pre>
+    {
+      "status": 200,
+      "message": "Registro deletado com sucesso"
+    }
+</pre>

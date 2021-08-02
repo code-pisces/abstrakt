@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação - Abstrakt API</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <nav>
+      <span class="menu-icon" id="openNavElement">
+        <img
+          src="/assets/images/menu.png"
+        />
+      </span>
+      <span class="menu-title">Documentação Abstrakt</span>
+    </nav>
+    <main>
+      <aside class="sidebar" id="sidenav">
+        <span class="logo">Abstrakt Doc</span>
+        <a href="/docs" class="link item">Apresentação</a>
+
+        <span class="section item">Autenticação</span>
+        <a href="auth" class="link item">Introdução</a>
+        <a href="auth#google" class="link item">Google OAuth</a>
+        <a href="auth#email-password" class="link item">Email e Senha</a>
+
+        <span class="section item">Emoções</span>
+        <a href="emotions" class="link item">Introdução</a>
+        <a href="emotions#object" class="link item">Objeto Emotion</a>
+        <a href="emotions#get" class="link item">Pegar Emoções</a>
+        <a href="emotions#create" class="link item">Criar Emoção</a>
+        <a href="emotions#update" class="link item">Atualizar Emoção</a>
+        <a href="emotions#delete" class="link item">Deletar Emoção</a>
+
+        <span class="section item">Registros</span>
+        <a href="records" class="link item">Introdução</a>
+        <a href="records#object" class="link item">Objeto Record</a>
+        <a href="records#get" class="link item">Pegar Registros</a>
+        <a href="records#get-id" class="link item">Pegar Registro</a>
+        <a href="records#create" class="link item">Criar Registro</a>
+        <a href="records#update" class="link item">Atualizar Registro</a>
+        <a href="records#delete" class="link item">Deletar Registros</a>
+      </aside>
+      <section>
+        {{{body}}}
+      </section>
+    </main>
+</body>
+</html>
+<script src="/assets/js/config.js"></script>

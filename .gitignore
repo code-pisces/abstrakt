@@ -1,0 +1,4 @@
+api/node_modules
+api/yarn.lock
+api/package-json.json
+api/.env

@@ -1,0 +1,208 @@
+<h1>Autenticação</h1>
+
+<p>A autenticação é feita a partir de um token JWT enviado através do header <i>Authorization</i> como um <i>Bearer</i> token. Para obter um token de autenticação deve-se realizar um login usando os meios disponíveis: <a href="#email-password">Email e senha</a>, <a href="#google">Google OAuth</a>. Seguindo esses padrões é possível acessar as rotas que necessitam de autenticação.</p>
+
+<h2>Jwt Token</h2>
+
+<h3>Exemplo:</h3>
+<pre>
+  <i>Authorization</i>: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+</pre>
+
+<div class="line"></div>
+
+<!-- Google -->
+
+<h1 id="google">Google OAuth</h1>
+
+<span class="method">POST</span>
+<span class="route">/auth/google</span>
+        
+<p>Para usar esse tipo de autenticação é necessário obter o token de autenticação usando o <a href="https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow#js-client-library">Google OAuth</a> e enviando para essa rota, onde será processado.</p>
+
+<h3>Params JSON</h3>
+
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+  <tr>
+    <td>token</td>
+    <td>string</td>
+    <td>Um token emitido pelo Google usando OAuth. Obrigatório.</td>
+  </tr>
+</table>
+
+<h3>Response Data JSON</h3>
+
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+  <tr>
+    <td>accessToken</td>
+    <td>string</td>
+    <td>Um token gerado pela api para autenticação, deve ser armazenado localmente.</td>
+  </tr>
+</table>
+
+<h3>Exemplo bem sucedido:</h3>
+
+<pre>
+  {
+    "status": 201,
+    "message": "Usuário criado com sucesso",
+    "data": {
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  }
+</pre>
+
+<h3>Exemplo mal sucedido:</h3>
+
+<pre>
+  {
+    "status": 400,
+    "message": "Email já cadastrado"
+  }
+</pre>
+
+<div class="line"></div>
+
+<!-- Local -->
+
+<h1 id="email-password">Email e Senha</h1>
+
+<h2>SignUp</h2>
+<span class="method">POST</span>
+<span class="route">/auth/local/signup</span>
+
+<p>Cadastro usando email e senha, cria uma nova conta retornando um token de autenticação.</p>
+
+<h3>Params JSON</h3>
+
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+  <tr>
+    <td>name</td>
+    <td>string</td>
+    <td>Um nome fornecido pelo usuário. Opcional</td>
+  </tr>
+  <tr>
+    <td>email</td>
+    <td>string</td>
+    <td>Um email válido. Obrigatório</td>
+  </tr>
+  <tr>
+    <td>password</td>
+    <td>string</td>
+    <td>Uma senha com mais do que 6 caracteres. Obrigatório</td>
+  </tr>
+</table>
+
+<h3>Response Data JSON</h3>
+
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+  <tr>
+    <td>accessToken</td>
+    <td>string</td>
+    <td>Um token gerado pela api para autenticação, deve ser armazenado localmente.</td>
+  </tr>
+</table>
+
+<h3>Exemplo bem sucedido:</h3>
+
+<pre>
+  {
+    "status": 201,
+    "message": "Usuário criado com sucesso",
+    "data": {
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  }
+</pre>
+
+<h3>Exemplo mal sucedido:</h3>
+
+<pre>
+  {
+    "status": 400,
+    "message": "Email já cadastrado"
+  }
+</pre>
+
+
+<h2 class="subtitle">SignIn</h2>
+<span class="method">POST</span>
+<span class="route">/auth/local/login</span>
+
+<p>Realiza um login usando as credenciais email e senha, retornando um token para autenticação.</p>
+
+<h3>Params JSON</h3>
+
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+  <tr>
+    <td>email</td>
+    <td>string</td>
+    <td>Um email válido. Obrigatório</td>
+  </tr>
+  <tr>
+    <td>password</td>
+    <td>string</td>
+    <td>Uma senha com mais do que 6 caracteres. Obrigatório</td>
+  </tr>
+</table>
+
+<h3>Response Data JSON</h3>
+
+<table>
+  <tr>
+    <th scope="col">Campos</td>
+    <th scope="col">Tipo</td>
+    <th scope="col">Descrição</td>
+  </tr>
+  <tr>
+    <td>accessToken</td>
+    <td>string</td>
+    <td>Um token gerado pela api para autenticação, deve ser armazenado localmente.</td>
+  </tr>
+</table>
+
+<h3>Exemplo bem sucedido:</h3>
+
+<pre>
+  {
+    "status": 200,
+    "message": "",
+    "data": {
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  }
+</pre>
+
+<h3>Exemplo mal sucedido:</h3>
+
+<pre>
+  {
+    "status": 400,
+    "message": "Credenciais inválidas"
+  }
+</pre>
