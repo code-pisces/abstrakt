@@ -9,7 +9,7 @@ Abstrakt API precisa de [Node.js](https://nodejs.org/) v12+ para rodar.
 Instale todas as dependências do projeto.
 
 ```sh
-cd abstrakt/api
+cd abstrakt
 npm install ou yarn install
 ```
 
