@@ -27,8 +27,10 @@ Esta API depende de variáveis de ambiente. Para desenvolvimento pode-se coloca-
 ```text
 PORT=<Porta para o servidor HTTP>
 TOKEN_SECRET=<Segredo para assinar os token JWT>
+SECRET_KEY=<Segredo para criptografar os dados no Banco de Dados>
 GOOGLE_SECRET=<Segredo das credenciais do Google OAuth>
 GOOGLE_ID=<Id da aplicação gerado pelo Google>
 MONGO_URI=<Endereço do banco de dados MongoDB>
+ALLOWED_ORIGIN=<Define os endereços aceitos pelo CORS>
 NODE_ENV=<Define o modo de execução, desenvolvimento ou produção>
 ```

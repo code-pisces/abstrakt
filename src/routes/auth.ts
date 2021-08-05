@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
 
+import { LoginRateLimit, RegisterRateLimit } from '../middleware/rate-limit';
 import { postLocalLogin, postLocalSignup, postGoogleAuth } from '../controller/user'
 import { googleOAuthAuthenticate } from '../config/googleAuth';
 
@@ -48,7 +49,7 @@ export const router: Router = Router();
  * }
  */
 
-router.post("/local/login", passport.authenticate("local", { session: false, failWithError: true }), postLocalLogin);
+router.post("/local/login", LoginRateLimit, passport.authenticate("local", { session: false, failWithError: true }), postLocalLogin);
 
 /**
  * POST /auth/local/signup
@@ -80,7 +81,7 @@ router.post("/local/login", passport.authenticate("local", { session: false, fai
  * }
  */
 
-router.post("/local/signup", postLocalSignup);
+router.post("/local/signup", RegisterRateLimit, postLocalSignup);
 
 /**
  * POST /auth/google

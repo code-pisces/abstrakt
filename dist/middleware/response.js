@@ -2,9 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.returnJSON = void 0;
 const messages_1 = require("../utils/messages");
-if (process.env.NODE_ENV !== 'production')
-    require("dotenv").config();
-const allowDevErrors = process.env.ALLOW_DEV_ERRORS || false;
+const allowDevErrors = process.env.NODE_ENV !== "production" ? true : false;
 /**
  * Middleware responsible for processing the response in json
  */
@@ -16,17 +14,18 @@ const returnJSON = (final, req, res, next) => {
         return res.status(400).json({ status: 400, message: messages_1.getMessage(language, error[0]["msg"]) });
     }
     const json = {
-        status: final.status || 404,
+        status: final.status || 400,
         message: messages_1.getMessage(language, final.messageType),
+        data: final.data
     };
     if (json.status == 401)
         json.message = messages_1.getMessage(language, "unauthorized");
-    if (json.status == 404)
-        json.message = messages_1.getMessage(language, "notfound");
-    if (final.data)
-        json.data = final.data;
     if (allowDevErrors)
         json.error = final.errorMessage;
+    if (final.name == "Error") {
+        json.status = 401;
+        json.message = messages_1.getMessage(language, final.message);
+    }
     res.status(json.status).json(json);
 };
 exports.returnJSON = returnJSON;

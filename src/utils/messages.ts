@@ -13,8 +13,8 @@ export const getMessage = (language: string, name: string | undefined): string =
         return "";
 
     if(messages.hasOwnProperty(language))
-        return messages[language][name] || "Return message not found";
-    return messages['pt-BR'][name] || "Return message not found";
+        return messages[language][name] || "Bad Request";
+    return messages['pt-BR'][name] || "Bad Request";
 };
 
 /**
@@ -38,6 +38,7 @@ export const messages: IMessages = {
 
         notfound: "Página não encontrada",
         unauthorized: "Credenciais inválidas",
+        cors: "Não permitido pelo CORS",
         not_implemented: "Recurso não implementado",
         invalid_google_token: "Token OAuth inválido",
 
@@ -83,6 +84,7 @@ export const messages: IMessages = {
     },
     "en-US": {
         default: "Houve um erro ao processar a requisição",
-        unauthorized: "You dont have permission to access this resource"
+        unauthorized: "You dont have permission to access this resource",
+        cors: "Not allowed by CORS",
     }
 };

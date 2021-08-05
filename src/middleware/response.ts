@@ -3,10 +3,7 @@ import { Result, ValidationError } from "express-validator";
 
 import { getMessage, getAllowedLanguages } from '../utils/messages';
 
-if(process.env.NODE_ENV !== 'production')
-    require("dotenv").config();
-
-const allowDevErrors = process.env.ALLOW_DEV_ERRORS || false;
+const allowDevErrors = process.env.NODE_ENV !== "production" ? true : false;
 
 export interface IFinalNext extends Error {
     status: number;
@@ -37,21 +34,21 @@ export const returnJSON = (final: IFinalNext, req: Request, res: Response, next:
     }
 
     const json: IApiJson = {
-        status: final.status || 404,
+        status: final.status || 400,
         message: getMessage(language, final.messageType),
+        data: final.data
     }
 
     if(json.status == 401)
         json.message = getMessage(language, "unauthorized");
-    
-    if(json.status == 404)
-        json.message = getMessage(language, "notfound");
-
-    if(final.data)
-        json.data = final.data
 
     if(allowDevErrors)
         json.error = final.errorMessage
+
+    if(final.name == "Error"){
+        json.status = 401;
+        json.message = getMessage(language, final.message);
+    }
 
     res.status(json.status).json(json);
 };

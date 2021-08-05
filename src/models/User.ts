@@ -1,5 +1,8 @@
-import { Schema, model, Document, ObjectId, Error } from 'mongoose';
+import { Schema, model, Document, ObjectId } from 'mongoose';
+import encrypt from 'mongoose-encryption';
 import * as bcrypt from 'bcrypt';
+
+const encKey = process.env.SECRET_KEY
 
 export interface UserDocument extends Document {
     _id: ObjectId;
@@ -59,7 +62,7 @@ UserSchema.pre("save", async function save(next): Promise<any>{
         let passwordHashed = await bcrypt.hash(user.password, salt);
         user.password = passwordHashed;
         next();
-    }catch(err){
+    }catch(err: any){
         next(err);
     }
 });
@@ -72,5 +75,9 @@ UserSchema.methods.comparePassword = async function(candidatePassword: string, c
         callback(err, null);
     }
 };
+
+UserSchema.plugin(encrypt, { 
+    secret: encKey
+});
 
 export const User = model<UserDocument>("User", UserSchema);

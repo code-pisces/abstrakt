@@ -1,7 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Record = void 0;
 const mongoose_1 = require("mongoose");
+const mongoose_encryption_1 = __importDefault(require("mongoose-encryption"));
+const encKey = process.env.SECRET_KEY;
 /**
  * Schema Records
  */
@@ -34,4 +39,5 @@ const RecordSchema = new mongoose_1.Schema({
 }, {
     timestamps: true
 });
+RecordSchema.plugin(mongoose_encryption_1.default, { secret: encKey });
 exports.Record = mongoose_1.model("Record", RecordSchema);

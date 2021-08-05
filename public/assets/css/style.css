@@ -47,7 +47,7 @@ pre::-webkit-scrollbar-thumb {
 
 /* Section */
 section {
-  padding: 20px 40px;
+  padding: 20px 30px;
   flex: 1;
   overflow-x: hidden;
 }

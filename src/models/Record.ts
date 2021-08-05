@@ -1,4 +1,7 @@
 import { Schema, model, Document, Types } from "mongoose";
+import encrypt from 'mongoose-encryption';
+
+const encKey = process.env.SECRET_KEY
 
 export interface RecordDocument extends Document {
     id: string;
@@ -64,5 +67,7 @@ const RecordSchema = new Schema<RecordDocument>({
 }, {
     timestamps: true
 });
+
+RecordSchema.plugin(encrypt, { secret: encKey });
 
 export const Record = model<RecordDocument>("Record", RecordSchema);

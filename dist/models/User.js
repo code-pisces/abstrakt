@@ -18,10 +18,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const mongoose_1 = require("mongoose");
+const mongoose_encryption_1 = __importDefault(require("mongoose-encryption"));
 const bcrypt = __importStar(require("bcrypt"));
+const encKey = process.env.SECRET_KEY;
 /**
  * Schema Users
  */
@@ -66,4 +71,7 @@ UserSchema.methods.comparePassword = async function (candidatePassword, callback
         callback(err, null);
     }
 };
+UserSchema.plugin(mongoose_encryption_1.default, {
+    secret: encKey
+});
 exports.User = mongoose_1.model("User", UserSchema);

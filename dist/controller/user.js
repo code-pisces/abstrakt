@@ -52,6 +52,7 @@ const createNewUser = (user, next) => {
  * @route POST /auth/local/signup
  */
 const postLocalSignup = async (req, res, next) => {
+    console.log(req.body);
     await express_validator_1.check("email", "email_invalid").escape().notEmpty().isEmail().run(req);
     await express_validator_1.check("password", "password_invalid").escape().notEmpty().isString().isLength({ min: 6 }).run(req);
     await express_validator_1.check("name", "name_invalid").optional({ nullable: true }).isAlpha("pt-BR", { ignore: " -" }).run(req);

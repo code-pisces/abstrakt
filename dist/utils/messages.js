@@ -10,8 +10,8 @@ const getMessage = (language, name) => {
     if (!name || name === "")
         return "";
     if (exports.messages.hasOwnProperty(language))
-        return exports.messages[language][name] || "Return message not found";
-    return exports.messages['pt-BR'][name] || "Return message not found";
+        return exports.messages[language][name] || "Bad Request";
+    return exports.messages['pt-BR'][name] || "Bad Request";
 };
 exports.getMessage = getMessage;
 /**
@@ -31,6 +31,7 @@ exports.messages = {
         default_error: "Houve um erro ao processar a requisição",
         notfound: "Página não encontrada",
         unauthorized: "Credenciais inválidas",
+        cors: "Não permitido pelo CORS",
         not_implemented: "Recurso não implementado",
         invalid_google_token: "Token OAuth inválido",
         //Database default
@@ -70,6 +71,7 @@ exports.messages = {
     },
     "en-US": {
         default: "Houve um erro ao processar a requisição",
-        unauthorized: "You dont have permission to access this resource"
+        unauthorized: "You dont have permission to access this resource",
+        cors: "Not allowed by CORS",
     }
 };

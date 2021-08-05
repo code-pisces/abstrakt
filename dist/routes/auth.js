@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 const express_1 = require("express");
 const passport_1 = __importDefault(require("passport"));
+const rate_limit_1 = require("../middleware/rate-limit");
 const user_1 = require("../controller/user");
 const googleAuth_1 = require("../config/googleAuth");
 exports.router = express_1.Router();
@@ -47,7 +48,7 @@ exports.router = express_1.Router();
  *     "message": "Credenciais inválidas"
  * }
  */
-exports.router.post("/local/login", passport_1.default.authenticate("local", { session: false, failWithError: true }), user_1.postLocalLogin);
+exports.router.post("/local/login", rate_limit_1.LoginRateLimit, passport_1.default.authenticate("local", { session: false, failWithError: true }), user_1.postLocalLogin);
 /**
  * POST /auth/local/signup
  * @summary Cadastra um usuário com email e senha e retorna um token de autenticação
@@ -77,7 +78,7 @@ exports.router.post("/local/login", passport_1.default.authenticate("local", { s
  *     "message": "'email' é obrigatório e precisa ser um email válido"
  * }
  */
-exports.router.post("/local/signup", user_1.postLocalSignup);
+exports.router.post("/local/signup", rate_limit_1.RegisterRateLimit, user_1.postLocalSignup);
 /**
  * POST /auth/google
  * @summary Cadastra ou Entra através de um token gerado pelo google, retornando um token para autenticação

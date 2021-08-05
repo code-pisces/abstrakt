@@ -59,6 +59,7 @@ const createNewUser = (user: UserDocument, next: NextFunction): any => {
  */
 
 export const postLocalSignup = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+    console.log(req.body)
     await check("email", "email_invalid").escape().notEmpty().isEmail().run(req);
     await check("password", "password_invalid").escape().notEmpty().isString().isLength({ min: 6 }).run(req);
     await check("name", "name_invalid").optional({nullable: true}).isAlpha("pt-BR", {ignore: " -"}).run(req);
