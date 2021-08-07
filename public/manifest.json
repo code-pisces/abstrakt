@@ -1,20 +1,20 @@
 {
-  "name": "React Avançado - Boilerplate",
-  "short_name": "React Avançado",
+  "name": "Abstrakt - Monitore seu humor e emoções",
+  "short_name": "Abstrakt",
   "icons": [
     {
-      "src": "/img/icon-192.png",
+      "src": "/img/logo-abstrakt.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "500x500"
     },
     {
-      "src": "/img/icon-512.png",
+      "src": "/img/logo-abstrakt.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "500x500"
     }
   ],
   "background_color": "#06092B",
-  "description": "Boilerplate utilizando Typescript, React, NextJS e Styled Components!",
+  "description": "Monitore seu humor e emoções.",
   "display": "fullscreen",
   "start_url": "/",
   "theme_color": "#06092B"

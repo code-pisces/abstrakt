@@ -11,9 +11,13 @@ const GlobalStyles = createGlobalStyle`
   }
   html, body, #__next {
     height: 100%;
+    background: ${(props) => props.theme.colors.background};
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility !important;
   }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+  h1, h2, h3, h4 {
+    font-family: ${(props) => props.theme.fonts.titles};
+    font-weight: bold;
   }
 `;
 
