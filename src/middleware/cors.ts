@@ -5,7 +5,7 @@ const whitelist = process.env.ALLOWED_ORIGIN?.replace(/\s/g, '').split(",");
 export const corsPreflight = cors({
     origin: whitelist,
     methods: ["GET", "PUT", "POST", "DELETE"],
-    allowedHeaders: ["Origin"],
+    //allowedHeaders: ["Origin"],
     maxAge: 86400,
 })
 
