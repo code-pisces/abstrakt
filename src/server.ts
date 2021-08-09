@@ -6,20 +6,20 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import exphbs from 'express-handlebars';
 import path from 'path';
-import cors from 'cors';
 
 import { router as authRouter } from './routes/auth';
 import { router as recordRouter } from './routes/records';
 import { router as emotionRouter } from './routes/emotions';
 import { router as docsRouter } from './routes/docs';
 
+import { corsMiddleware, corsPreflight } from './middleware/cors';
 import { authenticate } from './middleware/authenticate';
 import { notFound } from './middleware/notFound';
 import { returnJSON } from './middleware/response';
 import { GeneralRateLimit } from './middleware/rate-limit';
 
 import { passportConfig } from './config/passport';
-import { exit } from 'process';
+import cors from 'cors';
 
 const log: Logger = new Logger();
 const app: Express = express();
@@ -31,25 +31,16 @@ const PORT: String = process.env.PORT || '8080';
 const { SECRET_KEY, TOKEN_SECRET, MONGO_URI, ALLOWED_ORIGIN } = process.env;
 if(!SECRET_KEY || !TOKEN_SECRET || !MONGO_URI || !ALLOWED_ORIGIN){
     log.error("'SECRET_KEY', 'TOKEN_SECRET', 'MONGO_URI' and 'ALLOWED_ORIGIN' environment variables is required for start server.");
-    exit();
+    process.exit(1);
 }
 
 /**
- * Secure Config
+ * Helmet Config
  */
-const whitelist = process.env.ALLOWED_ORIGIN?.replace(/\s/g, '').split(",");
-
-app.use(helmet());
-app.use(cors({
-    origin: (origin, callback) => {
-        if(whitelist?.indexOf(origin || "") !== -1)
-            callback(null, true)
-        else
-            callback(new Error("cors"))
-    },
-    methods: ["GET", "PUT", "POST", "DELETE"],
-    preflightContinue: false,
-    optionsSuccessStatus: 204
+app.use(helmet({
+    referrerPolicy: {
+        policy: "origin"
+    }
 }));
 
 /*
@@ -71,7 +62,10 @@ app.enable("view cache")
 /*
  * Routes
  */
+app.options("*", corsPreflight);
+
 app.use("/docs", docsRouter);
+app.use(corsMiddleware);
 app.use("/auth", GeneralRateLimit, authRouter);
 app.use("/api/records", GeneralRateLimit, authenticate, recordRouter);
 app.use("/api/emotions", GeneralRateLimit, authenticate, emotionRouter);
