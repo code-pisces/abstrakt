@@ -20,9 +20,11 @@
     ]
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "formik": "^2.2.9",
     "next": "latest",
     "next-pwa": "latest",
+    "nookies": "^2.5.2",
     "react": "latest",
     "react-dom": "latest",
     "react-icons": "^4.2.0",
@@ -36,6 +38,7 @@
     "@storybook/react": "latest",
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
+    "@types/cookies": "^0.7.7",
     "@types/jest": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
