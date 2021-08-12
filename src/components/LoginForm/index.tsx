@@ -1,6 +1,6 @@
 import * as S from './styles';
 import * as Input from '../Input';
-import { Button } from 'components/Button';
+import { Button } from '../Button';
 
 import * as Yup from 'yup';
 import { ErrorMessage, Form, Formik } from 'formik';
@@ -9,10 +9,12 @@ import { FcGoogle } from 'react-icons/fc';
 
 import GirlWithPlant from '../../assets/girl-with-plant.svg';
 
+import { toast } from 'react-toastify';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { useContext } from 'react';
-import { AuthContext } from 'contexts/AuthContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
 type handleSignInProps = {
   email: string;
@@ -22,8 +24,23 @@ type handleSignInProps = {
 export const LoginForm = () => {
   const { signIn } = useContext(AuthContext);
 
+  function handleError(message: string) {
+    toast.error(`${message}`);
+  }
+
+  function handleSuccess(message: string) {
+    toast.success(`${message}`);
+  }
+
   async function handleSignIn(data: handleSignInProps) {
-    await signIn(data);
+    await signIn(data)
+      .then((res) => {
+        console.log(res)
+        handleSuccess('Usuário autenticado');
+      })
+      .catch((error) =>
+        handleError('Usuário inexistente ou credenciáis inválidas')
+      );
   }
 
   return (
@@ -64,7 +81,6 @@ export const LoginForm = () => {
           })}
           onSubmit={(values, { setSubmitting }) => {
             const timeOut = setTimeout(() => {
-              console.log(values);
               setSubmitting(false);
               handleSignIn(values);
               clearTimeout(timeOut);
@@ -94,7 +110,9 @@ export const LoginForm = () => {
                   type="submit"
                 />
                 <S.SignInField>
-                  <Link href="#"> ou cadastre-se.</Link>
+                  <Link href="/signup">
+                    <a>ou cadastre-se.</a>
+                  </Link>
                 </S.SignInField>
               </Form>
             );

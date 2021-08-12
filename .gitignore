@@ -5,9 +5,12 @@
 /.pnp
 .pnp.js
 
+<<<<<<< HEAD
 # testing
 /coverage
 
+=======
+>>>>>>> Sign Up ready for production
 # next.js
 /.next/
 /out/
@@ -31,5 +34,8 @@ yarn-error.log*
 
 public/sw.js
 public/workbox-*.js
+<<<<<<< HEAD
 
 storybook-static
+=======
+>>>>>>> Sign Up ready for production

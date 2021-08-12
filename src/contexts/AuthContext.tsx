@@ -1,6 +1,8 @@
 import { createContext, useState } from 'react';
-import { api } from '../services/api';
 import Router from 'next/router';
+
+import { api } from '../services/api';
+
 import { setCookie } from 'nookies';
 
 type SignInType = {
@@ -16,10 +18,12 @@ export const AuthContext = createContext({} as AuthContextType);
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState('');
+
   const isAuthenticated = !!token;
 
+
   const signIn = async ({ email, password }: SignInType) => {
-    api
+    await api
       .post('/auth/local/login', {
         headers: {
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
@@ -31,7 +35,6 @@ export const AuthProvider: React.FC = ({ children }) => {
       })
       .then((res) => {
         setToken(res.data.accessToken);
-        console.log(res);
       })
       .catch((error) => {
         console.log('error', error);
@@ -40,11 +43,11 @@ export const AuthProvider: React.FC = ({ children }) => {
     setCookie(undefined, 'abstrakt.token', token, {
       maxAge: 60 * 60 * 1 // 1 hour
     });
-    token && Router.push('/app');
+    isAuthenticated && Router.push('/app');
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signIn }}>
+    <AuthContext.Provider value={{ isAuthenticated, signIn}}>
       {children}
     </AuthContext.Provider>
   );

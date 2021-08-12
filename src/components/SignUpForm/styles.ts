@@ -81,6 +81,19 @@ export const FormContainer = styled.div`
     line-height: 3.9rem;
 
     color: ${(props) => props.theme.colors.titles};
+    margin-bottom: 1rem;
+  }
+
+  p {
+    width: 100%;
+    font-family: ${(props) => props.theme.fonts.primary};
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    text-align: left;
+
+    color: ${(props) => props.theme.colors.inputBorderText};
   }
 
   @media (orientation: landscape) and (min-width: 768px) {
@@ -89,70 +102,7 @@ export const FormContainer = styled.div`
   }
 `;
 
-export const SignWithGoogle = styled.button`
-  margin-top: 2.7rem;
-  padding: 1.5rem;
-
-  background: ${(props) => props.theme.colors.background};
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 0.8rem;
-
-  transition: filter ease-in-out 0.3s;
-
-  border: 0.1rem solid ${(props) => props.theme.colors.inputBorderText};
-  box-sizing: border-box;
-  border-radius: 0.8rem;
-
-  font-family: ${(props) => props.theme.fonts.primary};
-  font-weight: 500;
-  font-size: 1.6rem;
-  line-height: 1.9rem;
-
-  color: ${(props) => props.theme.colors.titles};
-
-  svg {
-    height: 2rem;
-    width: 2rem;
-  }
-
-  cursor: pointer;
-
-  &:hover {
-    filter: brightness(0.9);
-  }
-`;
-
-export const SeparatorWithOr = styled.div`
-  margin-top: 1rem;
-
-  display: flex;
-  align-items: center;
-
-  div {
-    width: 100%;
-    border-bottom: 0.1rem solid ${(props) => props.theme.colors.inputBorderText};
-  }
-
-  span {
-    width: 100%;
-    padding: 0 1rem;
-
-    font-family: ${(props) => props.theme.fonts.primary};
-    font-style: normal;
-    font-weight: normal;
-    font-size: 1.4rem;
-    line-height: 1.6rem;
-    text-align: center;
-
-    color: ${(props) => props.theme.colors.inputBorderText};
-  }
-`;
-
-export const LoginInputGroup = styled.div`
+export const SignUpInputGroup = styled.div`
   width: 100%;
 
   margin: 2rem 0;
@@ -162,6 +112,10 @@ export const LoginInputGroup = styled.div`
   }
 
   > div:nth-child(2) {
+    border-radius: 0;
+  }
+
+  > div:nth-child(3) {
     border-radius: 0 0 0.8rem 0.8rem;
     position: relative;
   }
@@ -185,7 +139,11 @@ export const InputWithErrorGroup = styled.div`
   }
 `;
 
-export const SignInField = styled.div`
+export const SignUpField = styled.div`
   margin-top: 1rem;
   width: 100%;
+
+  p a {
+    color: ${(props) => props.theme.colors.primary};
+  }
 `;

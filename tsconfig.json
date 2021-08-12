@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
+<<<<<<< HEAD
     "baseUrl": "src",
+=======
+>>>>>>> Sign Up ready for production
     "target": "es5",
     "lib": [
       "dom",
@@ -9,7 +12,11 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
+<<<<<<< HEAD
     "strict": true,
+=======
+    "strict": false,
+>>>>>>> Sign Up ready for production
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -19,12 +26,21 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
+<<<<<<< HEAD
   "exclude": [
     "node_modules"
   ],
+=======
+>>>>>>> Sign Up ready for production
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
+<<<<<<< HEAD
+=======
+  ],
+  "exclude": [
+    "node_modules"
+>>>>>>> Sign Up ready for production
   ]
 }
