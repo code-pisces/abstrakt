@@ -1,13 +1,6 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 
-<<<<<<< HEAD
-import { ThemeProvider } from 'styled-components';
-import { AuthProvider } from 'contexts/AuthContext';
-
-import theme from '../styles/theme';
-import GlobalStyles from 'styles/global';
-=======
 import { ToastContainer } from 'react-toastify';
 
 import { ThemeProvider } from 'styled-components';
@@ -15,7 +8,6 @@ import { AuthProvider } from '../contexts/AuthContext';
 
 import theme from '../styles/theme';
 import GlobalStyles from '../styles/global';
->>>>>>> Sign Up ready for production
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -33,10 +25,7 @@ function App({ Component, pageProps }: AppProps) {
           <meta name="referrer" content="origin" />
         </Head>
         <GlobalStyles />
-<<<<<<< HEAD
-=======
         <ToastContainer />
->>>>>>> Sign Up ready for production
         <Component {...pageProps} />
       </ThemeProvider>
     </AuthProvider>

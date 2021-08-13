@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import 'react-toastify/dist/ReactToastify.css';
->>>>>>> Sign Up ready for production
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`

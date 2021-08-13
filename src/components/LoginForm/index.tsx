@@ -22,7 +22,7 @@ type handleSignInProps = {
 };
 
 export const LoginForm = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, isAuthenticated } = useContext(AuthContext);
 
   function handleError(message: string) {
     toast.error(`${message}`);
@@ -34,13 +34,13 @@ export const LoginForm = () => {
 
   async function handleSignIn(data: handleSignInProps) {
     await signIn(data)
-      .then((res) => {
-        console.log(res)
-        handleSuccess('Usuário autenticado');
+      .then(() => {
+        isAuthenticated && handleSuccess('Usuário autenticado');
       })
-      .catch((error) =>
-        handleError('Usuário inexistente ou credenciáis inválidas')
-      );
+      .catch((error) => {
+        console.log('error', error);
+        handleError('Usuário inexistente ou credenciáis inválidas');
+      });
   }
 
   return (

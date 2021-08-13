@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+
 import * as S from './styles';
 import * as Input from '../Input';
 import { Button } from '../Button';
@@ -9,10 +11,13 @@ import { toast } from 'react-toastify';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
+import Router from 'next/router';
 
 import GirlChatting from '../../assets/girl-chatting-with-friends.svg';
 
 import { api } from '../../services/api';
+
+import { AuthContext } from '../../contexts/AuthContext';
 
 type SignUpForm = {
   name: string;
@@ -20,7 +25,14 @@ type SignUpForm = {
   password: string;
 };
 
+type SignInProps = {
+  email: string;
+  password: string;
+};
+
 export const SignUpForm = () => {
+  const { signIn } = useContext(AuthContext);
+
   function handleError(message: string) {
     toast.error(`${message}`);
   }
@@ -41,10 +53,12 @@ export const SignUpForm = () => {
         email,
         password
       })
-      .then((res) => {
-        handleSuccess("Usuário cadastrado com sucesso");
+      .then(() => {
+        Router.push('/');
+        handleSuccess('Usuário cadastrado com sucesso');
       })
       .catch((error) => {
+        error;
         handleError('Email já cadastrado');
       });
   }
@@ -83,7 +97,6 @@ export const SignUpForm = () => {
           })}
           onSubmit={(values, { setSubmitting }) => {
             const timeOut = setTimeout(() => {
-              console.log(values);
               handleSignUp(values);
               setSubmitting(false);
               clearTimeout(timeOut);

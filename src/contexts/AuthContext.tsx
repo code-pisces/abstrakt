@@ -12,7 +12,9 @@ type SignInType = {
 
 type AuthContextType = {
   isAuthenticated: boolean;
+  token: string;
   signIn: (data: SignInType) => Promise<void>;
+  setToken: (data: string) => void;
 };
 export const AuthContext = createContext({} as AuthContextType);
 
@@ -20,7 +22,6 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState('');
 
   const isAuthenticated = !!token;
-
 
   const signIn = async ({ email, password }: SignInType) => {
     await api
@@ -33,21 +34,20 @@ export const AuthProvider: React.FC = ({ children }) => {
         email,
         password
       })
-      .then((res) => {
-        setToken(res.data.accessToken);
-      })
-      .catch((error) => {
-        console.log('error', error);
+      .then(({ data }) => {
+        setToken(data.data.accessToken);
+        Router.push('/app');
       });
 
     setCookie(undefined, 'abstrakt.token', token, {
       maxAge: 60 * 60 * 1 // 1 hour
     });
-    isAuthenticated && Router.push('/app');
+
+    api.defaults.headers['Authorization'] = `Bearer ${token}`;
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signIn}}>
+    <AuthContext.Provider value={{ isAuthenticated, signIn, token, setToken }}>
       {children}
     </AuthContext.Provider>
   );
