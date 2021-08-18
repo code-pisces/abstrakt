@@ -59,6 +59,7 @@ app.set("views", path.join(__dirname, '../views'))
 app.engine("handlebars", exphbs());
 
 app.enable("view cache")
+
 /*
  * Routes
  */

@@ -40,7 +40,13 @@ export const messages: IMessages = {
         unauthorized: "Credenciais inválidas",
         cors: "Não permitido pelo CORS",
         not_implemented: "Recurso não implementado",
+
+        jwt_failed: "Erro ao gerar token JWT",
+
         invalid_google_token: "Token OAuth inválido",
+        empty_google_token: "Token OAuth vazio",
+        error_google_token: "Erro ao processar Token OAuth",
+        success_google_token: "Usuário logado com sucesso",
 
         //Database default
         entry_not_found: "Registro não encontrado",

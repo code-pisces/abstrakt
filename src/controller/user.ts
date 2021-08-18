@@ -114,17 +114,17 @@ export const postGoogleAuth = (req: Request, res: Response, next: NextFunction):
     const token: string | null = res.locals["google_token"];
 
     if(!payload || !token)
-        return res.sendStatus(401);
+        return next({ status: 401, messageType: "empty_google_token" });
     
     const { sub, email, name } = payload;
 
-    User.findOne({ google: sub }, (err: CallbackError, existingUser: UserDocument | null) => {
+    User.findOne({ email }, (err: CallbackError, existingUser: UserDocument | null) => {
         if(existingUser){
             const accessToken = jwtGenerateToken({ name: existingUser.name, email: existingUser.email }, existingUser.id);
             
             if(accessToken)
-                return res.status(200).json({ accessToken });
-            return res.status(400);
+                return next({ status: 200, messageType: "success_google_token", data: { accessToken} });
+            return next({ status: 400, messageType: "jwt_failed" });
         }
 
         const user = new User({
