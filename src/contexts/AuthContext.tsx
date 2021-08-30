@@ -13,7 +13,7 @@ type SignInType = {
 type AuthContextType = {
   isAuthenticated: boolean;
   token: string;
-  signIn: (data: SignInType) => Promise<void>;
+  signInLogin: (data: SignInType) => Promise<void>;
   setToken: (data: string) => void;
 };
 export const AuthContext = createContext({} as AuthContextType);
@@ -23,14 +23,9 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const isAuthenticated = !!token;
 
-  const signIn = async ({ email, password }: SignInType) => {
+  const signInLogin = async ({ email, password }: SignInType) => {
     await api
       .post('/auth/local/login', {
-        headers: {
-          'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json'
-        },
         email,
         password
       })
@@ -47,7 +42,9 @@ export const AuthProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signIn, token, setToken }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, signInLogin, token, setToken }}
+    >
       {children}
     </AuthContext.Provider>
   );

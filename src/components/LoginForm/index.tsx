@@ -1,9 +1,13 @@
+import { useContext } from 'react';
+
 import * as S from './styles';
 import * as Input from '../Input';
 import { Button } from '../Button';
 
 import * as Yup from 'yup';
 import { ErrorMessage, Form, Formik } from 'formik';
+
+import { signIn } from 'next-auth/client';
 
 import { FcGoogle } from 'react-icons/fc';
 
@@ -13,7 +17,7 @@ import { toast } from 'react-toastify';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useContext } from 'react';
+
 import { AuthContext } from '../../contexts/AuthContext';
 
 type handleSignInProps = {
@@ -21,8 +25,8 @@ type handleSignInProps = {
   password: string;
 };
 
-export const LoginForm = () => {
-  const { signIn, isAuthenticated } = useContext(AuthContext);
+export const LoginForm = (ctx?: any) => {
+  const { signInLogin, isAuthenticated } = useContext(AuthContext);
 
   function handleError(message: string) {
     toast.error(`${message}`);
@@ -32,8 +36,14 @@ export const LoginForm = () => {
     toast.success(`${message}`);
   }
 
+  const onSuccess = async () => {
+    await signIn('google')
+      .then((response) => handleSuccess('Usuário autenticado'))
+      .catch((error) => console.warn(error));
+  };
+
   async function handleSignIn(data: handleSignInProps) {
-    await signIn(data)
+    await signInLogin(data)
       .then(() => {
         isAuthenticated && handleSuccess('Usuário autenticado');
       })
@@ -57,10 +67,11 @@ export const LoginForm = () => {
       <S.FormContainer>
         <h1>Abstrakt</h1>
 
-        <S.SignWithGoogle>
+        <S.SignWithGoogle onClick={onSuccess}>
           <FcGoogle />
           Entre com Google
         </S.SignWithGoogle>
+
         <S.SeparatorWithOr>
           <div />
           <span>ou entre com email</span>
@@ -81,8 +92,8 @@ export const LoginForm = () => {
           })}
           onSubmit={(values, { setSubmitting }) => {
             const timeOut = setTimeout(() => {
-              setSubmitting(false);
               handleSignIn(values);
+              setSubmitting(false);
               clearTimeout(timeOut);
             }, 1000);
           }}
@@ -92,9 +103,17 @@ export const LoginForm = () => {
             return (
               <Form name="login-form" method="post" onSubmit={handleSubmit}>
                 <S.LoginInputGroup>
-                  <Input.Input name="email" placeholder="Email" />
+                  <Input.Input
+                    name="email"
+                    autoComplete="email"
+                    placeholder="Email"
+                  />
 
-                  <Input.InputForPassword name="password" placeholder="Senha" />
+                  <Input.InputForPassword
+                    name="password"
+                    autoComplete="password"
+                    placeholder="Senha"
+                  />
                   <S.InputWithErrorGroup>
                     <ErrorMessage name="email">
                       {(msg) => <span>{msg}</span>}

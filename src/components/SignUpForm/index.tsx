@@ -31,8 +31,6 @@ type SignInProps = {
 };
 
 export const SignUpForm = () => {
-  const { signIn } = useContext(AuthContext);
-
   function handleError(message: string) {
     toast.error(`${message}`);
   }

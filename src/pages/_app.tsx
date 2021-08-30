@@ -9,6 +9,8 @@ import { AuthProvider } from '../contexts/AuthContext';
 import theme from '../styles/theme';
 import GlobalStyles from '../styles/global';
 
+import { Provider } from 'next-auth/client';
+
 function App({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
@@ -26,7 +28,9 @@ function App({ Component, pageProps }: AppProps) {
         </Head>
         <GlobalStyles />
         <ToastContainer />
-        <Component {...pageProps} />
+        <Provider session={pageProps.session}>
+          <Component {...pageProps} />
+        </Provider>
       </ThemeProvider>
     </AuthProvider>
   );
