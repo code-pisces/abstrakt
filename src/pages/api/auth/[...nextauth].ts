@@ -22,7 +22,7 @@ const settings = {
   ],
 
   callbacks: {
-    async signIn(user: AuthenticatedUser, account, profile) {
+    async signIn(user: AuthenticatedUser, account) {
       if (account.provider === 'google') {
         const { idToken } = account;
 
@@ -40,7 +40,7 @@ const settings = {
       return false;
     },
 
-    async jwt(token, user: AuthenticatedUser, account, profile, isNewUser) {
+    async jwt(token, user: AuthenticatedUser) {
       if (user) {
         const { access_token } = user;
         token.access = access_token;

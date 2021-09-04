@@ -12,7 +12,6 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import theme from '@/styles/theme';
 import GlobalStyles from '@/styles/global';
 
-
 function App({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>

@@ -1,5 +1,5 @@
 // next & react imports
-import React, { InputHTMLAttributes, useState } from 'react';
+import React, { useState } from 'react';
 
 // dependencies imports
 import { Field } from 'formik';
