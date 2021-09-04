@@ -1,9 +1,15 @@
+// next & react imports
 import { NextApiRequest, NextApiResponse } from 'next';
+
+// dependencies imports
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
-import { api } from '../../../services/api';
 
-import { AuthenticatedUser } from '../../../../types';
+// code imports
+import { api } from '@/services/api';
+
+// types imports
+import { AuthenticatedUser } from '@/types';
 
 const settings = {
   providers: [

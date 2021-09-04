@@ -1,13 +1,15 @@
+// next & react imports
 import React, { InputHTMLAttributes, useState } from 'react';
+
+// dependencies imports
 import { Field } from 'formik';
-
-import * as S from './styles';
-
 import { AiOutlineEye } from 'react-icons/ai';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  name: string;
-}
+//  code imports
+import * as S from './styles';
+
+// types imports
+import { InputProps } from '@/types';
 
 export const Input: React.FC<InputProps> = ({ ...rest }) => (
   <S.Wrapper>

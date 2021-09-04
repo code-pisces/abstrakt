@@ -1,11 +1,8 @@
-import { ButtonHTMLAttributes } from 'react';
+// code imports
 import * as S from './styles';
 
-interface ButtonTypeProps extends ButtonHTMLAttributes<HTMLInputElement> {
-  main: string;
-  isSubmitting?: boolean;
-  outline?: boolean;
-}
+// types imports
+import { ButtonTypeProps } from '@/types';
 
 export const Button: React.FC<ButtonTypeProps> = ({
   main,

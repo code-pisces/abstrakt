@@ -1,3 +1,4 @@
+// next & react imports
 import axios from 'axios';
 import { parseCookies } from 'nookies';
 
@@ -7,7 +8,7 @@ export function getAPIClient(ctx?: any) {
   const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL,
     headers: {
-      Origin: 'http://localhost:3000',
+      Origin: process.env.NEXT_PUBLIC_API_URL,
       'Content-Type': 'application/json'
     }
   });

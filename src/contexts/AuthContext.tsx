@@ -1,25 +1,20 @@
-import { createContext, useState } from 'react';
+// next & react imports
+import { createContext } from 'react';
 import Router from 'next/router';
 
-import { api } from '../services/api';
+// dependencies imports
+import { parseCookies, setCookie } from 'nookies';
 
-import { setCookie } from 'nookies';
+// code imports
+import { api } from '@/services/api';
 
-type SignInType = {
-  email: string;
-  password: string;
-};
+// types imports
+import { AuthContextType, SignInType } from '@/types';
 
-type AuthContextType = {
-  isAuthenticated: boolean;
-  token: string;
-  signInLogin: (data: SignInType) => Promise<void>;
-  setToken: (data: string) => void;
-};
 export const AuthContext = createContext({} as AuthContextType);
 
-export const AuthProvider: React.FC = ({ children }) => {
-  const [token, setToken] = useState('');
+export const AuthProvider: React.FC = ({ children }, ctx) => {
+  const { ['abstrakt.token']: token } = parseCookies(ctx);
 
   const isAuthenticated = !!token;
 
@@ -29,22 +24,20 @@ export const AuthProvider: React.FC = ({ children }) => {
         email,
         password
       })
-      .then(({ data }) => {
-        setToken(data.data.accessToken);
+      .then(async ({ data }) => {
+        const tokenAccess = await data.data.accessToken;
+        setCookie(undefined, 'abstrakt.token', tokenAccess, {
+          maxAge: 60 * 60 * 1 // 1 hour
+        });
+
         Router.push('/app');
+
+        api.defaults.headers['Authorization'] = `Bearer ${tokenAccess}`;
       });
-
-    setCookie(undefined, 'abstrakt.token', token, {
-      maxAge: 60 * 60 * 1 // 1 hour
-    });
-
-    api.defaults.headers['Authorization'] = `Bearer ${token}`;
   };
 
   return (
-    <AuthContext.Provider
-      value={{ isAuthenticated, signInLogin, token, setToken }}
-    >
+    <AuthContext.Provider value={{ isAuthenticated, signInLogin, token }}>
       {children}
     </AuthContext.Provider>
   );
